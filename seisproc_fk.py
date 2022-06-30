@@ -24,7 +24,8 @@ def fk_filter(data_fft2,fst,fsx, vmax=10000,vmin=0,
     and return the filtered data in the time domain.
     '''
     Nx, Nt = data_fft2.shape
-
+    kk   = sfft.fftfreq(Nx, d=1/fsx)
+    ff   = sfft.fftfreq(Nt, d=1/fst)
     # Initialize
     mask = np.ones(shape=data_fft2.shape)
     
@@ -60,31 +61,31 @@ def fk_filter(data_fft2,fst,fsx, vmax=10000,vmin=0,
     data_filt= sfft.ifft2(data_fft2*mask).real
 
     # Quick plots to check results 
-    # plot_fk_domain(f=ff,k=kk,c=np.abs(data_fft2),
-    #                  fst=fst,fsx=fsx,vm=2)
-    # plot_fk_domain(f=ff,k=kk,c=mask,
+    # generate_fk_fig(f=ff,k=kk,c=np.abs(data_fft2),
+    #                  Nt=Nt,fst=fst,Nx=Nx,fsx=fsx,vm=2)
+    # generate_fk_fig(f=ff,k=kk,c=mask,
     #                  fst=fst,fsx=fsx,vm=0)
 
     return data_filt, mask   
 
 
-def plot_fk_domain(f,k,c,fst,fsx,vm=0,figsize=(6,3)):
+def plot_fk_domain(c, f,k,fst,fsx,vm=0,figsize=(6,3)):
     '''
-    Plot shifted fk domain image given unshifted data and axis (eg. generated 
-    using scipy.fft.fftfreq and scipy.fft.fft.
+    Plot shifted fk domain image given unshifted fk domain data and axis 
+    (eg. generated using scipy.fft.fftfreq and scipy.fft.fft.
 
     Parameters
     ----------
+    c : numpy 2D array
+        Any data with from scipy.fftpack.fft2 with shape shape (len(k), len(f)).
     f : numpy 1D array
         Frequency axis from scipy.fftpack.fftfreq.
     k : numpy 1D array
         Wave number axis from scipy.fftpack.fftfreq.
-    c : numpy 2D array
-        Any data with from scipy.fftpack.fft2 with shape shape (len(k), len(f)).
-    fst : TYPE
-        DESCRIPTION.
-    fsx : TYPE
-        DESCRIPTION.
+    fst : float
+        Sampling rate in time (unitL 1/s).
+    fsx : float
+        Sampling rate in distance (unit: 1/m).
     vm : float, optional
         Colorbar scale (range: 0-100). 
         eg. 0: display all color range. 10: exclude highest & lowest 10% data.
@@ -99,8 +100,6 @@ def plot_fk_domain(f,k,c,fst,fsx,vm=0,figsize=(6,3)):
 
     '''
     Nx, Nt = c.shape
-    k   = sfft.fftfreq(Nx, d=1/fsx)
-    f   = sfft.fftfreq(Nt, d=1/fst)
     vm1 = np.percentile(c, 0+vm)
     vm2 = np.percentile(c, 100-vm)
     fig,ax=plt.subplots(figsize=figsize)
