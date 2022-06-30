@@ -4,7 +4,7 @@
 
 A collection of useful functions for seismic data processing. 
 
-The script is distributed under the terms of the GNU General Public License as 
+The scripts are distributed under the terms of the GNU General Public License as 
 published by the Free Software Foundation (version 3 or later version).
 
 @author: Hilary Chang

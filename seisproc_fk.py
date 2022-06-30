@@ -3,7 +3,7 @@
 """
 Functions for FK domain 2D seismic data processing. 
 
-The script is distributed under the terms of the GNU General Public License as 
+The scripts are distributed under the terms of the GNU General Public License as 
 published by the Free Software Foundation (version 3 or later version).
 
 @author: Hilary Chang
@@ -32,7 +32,7 @@ def fk_filter(data_fft2,fst,fsx, vmax=10000,vmin=0,
     for k in range(1,int(Nx/2)):
         for w in range(1,int(Nt/2)):
             v = (w*fst/Nt)/(k*fsx/Nx) 
-            print('Resolution:\n df = %s Hz\n dk = %s m^-1'%(fst/Nt,fsx/Nx))
+            print('Resolution:\n df = %d Hz\n dk = %s m^-1'%(fst/Nt,fsx/Nx))
             # Note: resolution is  dw=fst/Nt and dk=fsx/Nx
             # Note that dk and dw here have unit m^(-1) and s^(-1). ie. They are 
             # actually k/(2pi) and f=w/(2pi) in common notation.
@@ -68,8 +68,8 @@ def fk_filter(data_fft2,fst,fsx, vmax=10000,vmin=0,
 
     return data_filt, mask   
 
-
-def plot_fk_domain(c, f,k,fst,fsx,vm=0,figsize=(6,3)):
+def plot_fk_domain(c, f,k,fst,fsx,vm=0, ax=None, 
+                   figsize=(6,4),title_size=10):
     '''
     Plot shifted fk domain image given unshifted fk domain data and axis 
     (eg. generated using scipy.fft.fftfreq and scipy.fft.fft.
@@ -90,8 +90,12 @@ def plot_fk_domain(c, f,k,fst,fsx,vm=0,figsize=(6,3)):
         Colorbar scale (range: 0-100). 
         eg. 0: display all color range. 10: exclude highest & lowest 10% data.
         The default is 0.
+    ax: matplotlib.axes, optional 
+        Axes to plot in. If not given, a new figure with an axes will be created. 
     figsize : tuple, optional
         The default is (6,3).
+    title_size : float, optional
+        The default is 10
 
     Returns
     -------
@@ -102,7 +106,10 @@ def plot_fk_domain(c, f,k,fst,fsx,vm=0,figsize=(6,3)):
     Nx, Nt = c.shape
     vm1 = np.percentile(c, 0+vm)
     vm2 = np.percentile(c, 100-vm)
-    fig,ax=plt.subplots(figsize=figsize)
+    if not ax:
+        fig,ax=plt.subplots(figsize=figsize)
+    
+    ax=plt.gca()
     qmesh = ax.pcolorfast(
                             sfft.fftshift(f), sfft.fftshift(k),
                             sfft.fftshift(c),
@@ -114,10 +121,11 @@ def plot_fk_domain(c, f,k,fst,fsx,vm=0,figsize=(6,3)):
     plt.axhline(y=0,ls='--',lw=0.5,color='r')
     plt.ylabel(r'$f_x$ ($m^{-1}$)')
     plt.xlabel(r'$f_t$ ($s^{-1}$)')
-    plt.title(r'$N_t={0:d},\ f_{{st}}={1:f} Hz,\ N_x={2:d},\ f_{{sx}}={3}\ /m$'.format(
-        Nt,fst,Nx,fsx))
+    plt.title(
+    r'$N_t={0:d},\ f_{{st}}={1:.0f}\ Hz,\ N_x={2:d},\ f_{{sx}}={3}\ /m$'.format(
+    Nt,fst,Nx,fsx),fontsize=title_size)
     plt.tight_layout()
-    plt.show
+
     return ax
 
 
