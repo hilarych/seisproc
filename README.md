@@ -2,6 +2,25 @@
 
 This is a long-term project for sharing simple and useful seismic processing routines. The goal of this project is to share light routines with minimum dependency that can be easily integrated into many other projects.
 
+## Usage:
+
+Download the repo in terminal:
+'''
+package_dir$ git clone https://github.com/hilarych/seisproc.git
+'''
+
+In the Python script:
+'''
+import sys
+sys.path.append('package_dir/')
+import seisproc as se
+
+# Using the fk functions
+se.fk 
+'''
+
+
+
 ## Contents:
 
 - **util.py**: Basic signal processing treatments
