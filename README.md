@@ -4,7 +4,7 @@ This is a long-term project for sharing simple and useful seismic processing rou
 
 ## Usage:
 
-Download the repo in terminal at `your_package_dir`:
+Download the repo in terminal at `your_packages_dir`:
 ```console
 git clone https://github.com/hilarych/seisproc.git
 ```
@@ -12,7 +12,7 @@ git clone https://github.com/hilarych/seisproc.git
 In the Python script:
 ```python
 import sys
-sys.path.append('your_package_dir/')
+sys.path.append('your_packages_dir/')
 import seisproc as se
 
 # eg. Using the fk functions
