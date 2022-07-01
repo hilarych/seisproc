@@ -1,6 +1,9 @@
 # seisproc
 
-This is a long-term project for sharing simple and useful seismic processing routines. The goal of this project is to share light routines with minimum dependency that can be easily integrated into many other projects.
+This is a long-term project for sharing simple and useful seismic processing routines. The goal of this project is to 
+
+1. Do quick data analysis and visualization.
+2. Share light routines with minimum dependency that can be used as templates for many other projects.
 
 ## Usage:
 
