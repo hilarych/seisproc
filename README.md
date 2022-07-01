@@ -4,20 +4,20 @@ This is a long-term project for sharing simple and useful seismic processing rou
 
 ## Usage:
 
-Download the repo in terminal:
-'''
-package_dir$ git clone https://github.com/hilarych/seisproc.git
-'''
+Download the repo in terminal at `your_package_dir`:
+```console
+git clone https://github.com/hilarych/seisproc.git
+```
 
 In the Python script:
-'''
+```python
 import sys
-sys.path.append('package_dir/')
+sys.path.append('your_package_dir/')
 import seisproc as se
 
-# Using the fk functions
-se.fk 
-'''
+# eg. Using the fk functions
+se.fk.fkfilter(...) 
+```
 
 
 
