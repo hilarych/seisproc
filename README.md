@@ -13,5 +13,5 @@ This is a long-term project for sharing simple and useful seismic processing rou
 The scripts are distributed under the terms of the GNU General Public License as 
 published by the Free Software Foundation (version 3 or later version).
 
-@ Hilary Chang
+@ Hilary Chang ([hilarych@mit.edu](hilarych@mit.edu))
 
