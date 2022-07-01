@@ -13,10 +13,10 @@ In the Python script:
 ```python
 import sys
 sys.path.append('your_packages_dir/')
-import seisproc as se
+import seisproc as sep
 
 # eg. Using the fk functions
-se.fk.fkfilter(...) 
+sep.fk.fkfilter(...) 
 ```
 
 
