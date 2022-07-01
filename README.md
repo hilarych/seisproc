@@ -5,6 +5,11 @@ This is a long-term project for sharing simple and useful seismic processing rou
 1. Do quick data analysis and visualization.
 2. Share light routines with minimum dependency that can be used as templates for many other projects.
 
+The scripts are shared with the hope that they can be useful. They are distributed under the terms of the GNU General Public License as 
+published by the Free Software Foundation (version 3 or later version). Please let me know if you notice any mistake. Thanks! 
+
+@ Hilary Chang ([hilarych@mit.edu](mailto:hilarych@mit.edu))
+
 ## Usage:
 
 Download the repo in terminal at `your_packages_dir`:
@@ -19,7 +24,7 @@ sys.path.append('your_packages_dir/')
 import seisproc as sep
 
 # eg. Using the fk functions
-sep.fk.fkfilter(...) 
+sep.fk.fk_filter(...) 
 ```
 
 
@@ -32,8 +37,4 @@ sep.fk.fkfilter(...)
 - **ax.py**: Objects and functions for plotting
 
 
-The scripts are distributed under the terms of the GNU General Public License as 
-published by the Free Software Foundation (version 3 or later version).
-
-@ Hilary Chang ([hilarych@mit.edu](mailto:hilarych@mit.edu))
 
