@@ -35,5 +35,5 @@ sep.fk.fkfilter(...)
 The scripts are distributed under the terms of the GNU General Public License as 
 published by the Free Software Foundation (version 3 or later version).
 
-@ Hilary Chang ([hilarych@mit.edu](hilarych@mit.edu))
+@ Hilary Chang ([hilarych@mit.edu](mailto:hilarych@mit.edu))
 
