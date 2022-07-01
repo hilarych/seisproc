@@ -13,6 +13,18 @@ published by the Free Software Foundation (version 3 or later version).
 from scipy.signal import hann
 import numpy as np
 
+def common_member(a, b): 
+    """
+    Return the sorted list of the common elements in the 2 given lists. 
+    TODO
+
+    """
+    com=set(a) & set(b) 
+    c=[]
+    for i in com:
+        c.append(int(i))
+    return sorted(c)
+
 
 def hann_taper(data,percentage=0.1,wlen=None,left_right='both'):
     '''
