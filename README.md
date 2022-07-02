@@ -5,8 +5,7 @@ Here, I share some simple and useful seismic processing routines. The goal of th
 1. Be able to do quick data analysis and visualization.
 2. Having templates of frequenctly used routines for new projects.
 
-The scripts are shared with the hope that they can be useful. They are distributed under the terms of the GNU General Public License as 
-published by the Free Software Foundation (version 3 or later version). Please let me know if you notice any mistake. Thanks! 
+The scripts are shared with the hope that they can be useful without any warranty. Please let me know if you notice any mistake. Thanks! 
 
 @ Hilary Chang ([hilarych@mit.edu](mailto:hilarych@mit.edu))
 
