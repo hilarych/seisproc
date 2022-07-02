@@ -24,17 +24,8 @@ sys.path.append('your_packages_dir/')
 import seisproc as sep
 
 # eg. Using the fk functions
-sep.fk.fk_filter(...) 
+sep.fk_filter(...) 
 ```
-
-
-
-## Contents:
-
-- **util.py**: Basic signal processing treatments
-- **fk.py**: fk domain processing
-- **plot.py**: Functions for visualization
-- **ax.py**: Objects and functions for plotting
 
 
 
