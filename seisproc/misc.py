@@ -16,6 +16,19 @@ from matplotlib.text import Annotation
 from matplotlib.transforms import Affine2D
 import pandas as pd
 
+
+def common_member(a, b): 
+    """
+    Return the sorted list of the common elements in the 2 given lists. 
+    TODO
+
+    """
+    com=set(a) & set(b) 
+    c=[]
+    for i in com:
+        c.append(int(i))
+    return sorted(c)
+
 def line(x,a,b=0):
     '''
     Get y given x.
