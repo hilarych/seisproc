@@ -10,8 +10,11 @@ published by the Free Software Foundation (version 3 or later version).
 @author: Hilary Chang
 
 """
-from scipy.signal import hann
+from scipy.signal import hann,wiener
 import numpy as np
+import scipy
+from time import time
+
 
 
 def hann_taper(data,percentage=0.1,wlen=None,left_right='both'):
@@ -64,3 +67,60 @@ def hann_taper(data,percentage=0.1,wlen=None,left_right='both'):
     data_tapered = data* window
     
     return data_tapered
+
+
+def one_side_2_both_sides(st):
+    
+    for k,tr in enumerate(st): 
+        data_pos= tr.data
+        data_neg=data_pos[1:]
+        data =np.concatenate((data_neg[::-1],data_pos))
+        st[k].data= data
+
+        t0=tr.stats.sac.t0+ len(data_neg)/tr.stats.sampling_rate
+        st[k].stats.sac['t0']=t0
+
+    return st 
+
+
+def NCF_denoising(img_to_denoise,Mdate,Ntau,NSV):
+    '''
+    SVDWF method from Moreau et al (2017)
+    Inputs:
+        - img_to_denoise: the list of NCF. It should be an MxN matrix where M 
+            represents the total number of NCF and N the
+            length of each NCF
+        - mdate: the size of the Wiener filter in the first dimension (K = 5)
+        - ntau: the size of the Wiener filter in the second dimension (L = 5)
+        - nsv: the number of singular values to keep in the SVD filter (25)
+    Outputs:
+        - denoised_img: the denoised list of NCF
+    
+    '''
+    t1 = time()
+    if img_to_denoise.ndim ==2:
+        M,N = img_to_denoise.shape
+        if NSV > np.min([M,N]):
+            NSV = np.min([M,N])
+        [U,S,V] = scipy.linalg.svd(img_to_denoise,full_matrices=False)
+        print ('SVD done, time used',time()-t1)
+        S = scipy.linalg.diagsvd(S,S.shape[0],S.shape[0])
+        print (time()-t1)
+        Xwiener = np.zeros([M,N])
+        for kk in range(NSV):
+            str_out = '%d/%d, total time used %.2fs' % (kk,NSV,time()-t1)
+            print (str_out)
+            SV = np.zeros(S.shape)
+            SV[kk,kk] = S[kk,kk]
+            X = U@SV@V
+            Xwiener += wiener(X,[Mdate,Ntau])
+            
+        denoised_img = wiener(Xwiener,[Mdate,Ntau])
+    elif img_to_denoise.ndim ==1:
+        M = img_to_denoise.shape[0]
+        NSV = np.min([M,NSV])
+        denoised_img = wiener(img_to_denoise,Ntau)
+        temp = np.trapz(np.abs(np.mean(denoised_img) - img_to_denoise))    
+        denoised_img = wiener(img_to_denoise,Ntau,np.mean(temp))
+
+    return denoised_img
