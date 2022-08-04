@@ -14,7 +14,48 @@ from scipy.signal import hann,wiener
 import numpy as np
 import scipy
 from time import time
+import scipy.fftpack as sfft
 
+def opt_fft(data):
+    '''
+    perform fft with optimized array length.
+    data: 2D array (nx, nt) or 1D array (nt)
+    
+    Modified from code by Hongrui Qiu.
+    
+    '''
+    nmin = data.shape[-1]*2
+    nopt = sfft.next_fast_len(nmin)
+    spec = sfft.fft(data,n=nopt)
+    return spec
+
+def guassian_BPF(wf,alpha,per,dt):
+    '''
+    Narrow bandpass filter using a Gaussian function.
+    alpha - width of the bandpass
+    per - Center periods of the bandpass
+    
+    return:
+    Complex 1D array (ns) 
+        
+    Modified from code by Hongrui Qiu.
+    '''
+    sf = opt_fft(wf) # data spectrum in the f domain
+    ns = len(sf)       # Number of sample (time)
+    dom = 2*np.pi/ns/dt
+    om = 2*np.pi/per
+    b = np.exp(-((dom*np.arange(ns)-om)/om)**2*alpha)
+
+    fils = b*sf
+    # fill with zeros half spectra for Hilbert transformation and
+    # spectra ends ajustment
+    for m in range(ns//2+1,ns,1):
+        fils[m] = 0.0
+    fils[0] /= 2.0
+    fils[ns//2] = np.real(fils[ns//2])
+    # forward FFT: fils ==> tmp
+    tmp = sfft.ifft(fils)
+    return tmp[0:ns]
 
 
 def hann_taper(data,percentage=0.1,wlen=None,left_right='both'):
