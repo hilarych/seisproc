@@ -29,7 +29,8 @@ def opt_fft(data):
     spec = sfft.fft(data,n=nopt)
     return spec
 
-def guassian_BPF(wf,alpha,per,dt):
+
+def guassian_BPF(wf,f,dt,alpha=20):
     '''
     Narrow bandpass filter using a Gaussian function.
     alpha - width of the bandpass
@@ -38,12 +39,11 @@ def guassian_BPF(wf,alpha,per,dt):
     return:
     Complex 1D array (ns) 
         
-    Modified from code by Hongrui Qiu.
     '''
     sf = opt_fft(wf) # data spectrum in the f domain
     ns = len(sf)       # Number of sample (time)
     dom = 2*np.pi/ns/dt
-    om = 2*np.pi/per
+    om = 2*np.pi*f
     b = np.exp(-((dom*np.arange(ns)-om)/om)**2*alpha)
 
     fils = b*sf
@@ -56,6 +56,7 @@ def guassian_BPF(wf,alpha,per,dt):
     # forward FFT: fils ==> tmp
     tmp = sfft.ifft(fils)
     return tmp[0:ns]
+
 
 
 def hann_taper(data,percentage=0.1,wlen=None,left_right='both'):
