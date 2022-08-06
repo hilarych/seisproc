@@ -1,6 +1,6 @@
 # seisproc
 
-Here are some colletion of useful functions for seismic data processing. The goal of this repository is to
+Here are some collections of useful functions for seismic data processing. The goal of this repository is to
 
 1. Be able to do quick data analysis and visualization.
 2. Have templates of frequenctly used routines for new projects.
