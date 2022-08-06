@@ -1,11 +1,11 @@
 # seisproc
 
-Here, I share some simple and useful seismic processing routines. The goal of this project is to 
+Here are some colletion of useful functions for seismic data processing. The goal of this repository is to
 
 1. Be able to do quick data analysis and visualization.
-2. Having templates of frequenctly used routines for new projects.
+2. Have templates of frequenctly used routines for new projects.
 
-The scripts are shared with the hope that they can be useful without any warranty. Please let me know if you notice any mistake. Thanks! 
+The scripts are shared with the hope that they can be useful without any warranty. Scripts are subject to change. Please let me know if you notice any mistake. Thanks! 
 
 @ Hilary Chang ([hilarych@mit.edu](mailto:hilarych@mit.edu))
 
