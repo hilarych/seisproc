@@ -16,6 +16,34 @@ from matplotlib.text import Annotation
 from matplotlib.transforms import Affine2D
 import pandas as pd
 
+def lower_tri_masking(A):
+    '''
+    Get all the elements in the lower triangular of a square matrix 
+    (diagonals are not included).
+    This function is for getting the station pairs quickly with np.mesh.
+    eg.
+    s,r =np.meshgrid(ch_list,ch_list)
+    s = lower_tri_masking(s)
+    r = lower_tri_masking(r)
+    ch12_list= np.vstack((s,r)).T
+    
+    '''
+    m = A.shape[0]
+    r = np.arange(m)
+    mask = r[:,None] > r
+    return A[mask]
+
+def angle_between(p1, p2):
+    '''
+    Calculate the angle between two points.
+    Can be used to calculate azimuth of a vector using p1=[0,1],p2=vector.
+    Back azimuth: p1=[0,1],p2=-vector.
+    
+    '''
+    ang1 = np.arctan2(*p1[::-1])
+    ang2 = np.arctan2(*p2[::-1])
+    # return np.rad2deg((ang1 - ang2) % (2 * np.pi))
+    return (ang1 - ang2) % (2 * np.pi)
 
 def common_member(a, b): 
     """
