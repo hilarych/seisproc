@@ -5,7 +5,7 @@ Here are some collections of useful functions for seismic data processing. The g
 1. Be able to do quick data analysis and visualization.
 2. Have templates of frequenctly used routines for new projects.
 
-The scripts are shared with the hope that they can be useful without any warranty. Scripts are subject to change. Please let me know if you notice any mistake. Thanks! 
+The codes in this repository are still in experiment and proliminary stage. Scripts are subject to change. 
 
 @ Hilary Chang ([hilarych@mit.edu](mailto:hilarych@mit.edu))
 
